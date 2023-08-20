@@ -4,7 +4,7 @@ local switchmonitors = require("SwitchMonitors")
 local openapps = require("OpenApps")
 local windowmanagement = require('WindowManagement')
 
-local modifier = {"alt", "shift"}
+local modifier = {"alt", "shift"} 
 
 -- Open apps 
 openAllApps(modifier)
