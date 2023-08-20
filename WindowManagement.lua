@@ -1,21 +1,8 @@
 -- Directions window management
 local screenFrame = hs.screen.mainScreen():frame()
 
--- Initialize a variable to keep track of the last direction
-local lastDirection = nil
-
--- Function to reset the window position and size
-function resetWindow()
-    local win = hs.window.focusedWindow()
-    local frame = win:frame()
-    
-    frame.x = screenFrame.x
-    frame.y = screenFrame.y
-    frame.w = screenFrame.w / 2
-    frame.h = screenFrame.h / 2
-    
-    win:setFrame(frame)
-end
+-- Set the animation duration (in seconds)
+hs.window.animationDuration = 0.2
 
 -- Function to move the current window to a specific portion of the screen
 function moveWindow(direction)
