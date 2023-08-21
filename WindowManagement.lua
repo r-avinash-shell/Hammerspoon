@@ -7,6 +7,41 @@ hs.window.animationDuration = 0.2
 -- Function to move the current window to a specific portion of the screen
 function moveWindow(direction)
   local win = hs.window.focusedWindow()
+  local screen = win:screen()
+  local screenFrame = screen:frame()
+  local frame = win:frame()
+
+  local x, y, w, h = frame.x, frame.y, frame.w, frame.h
+
+  if direction == "left" then
+    x = screenFrame.x
+    y = screenFrame.y
+    w = screenFrame.w / 2
+    h = screenFrame.h
+  elseif direction == "right" then
+    x = screenFrame.x + (screenFrame.w / 2)
+    y = screenFrame.y
+    w = screenFrame.w / 2
+    h = screenFrame.h
+  elseif direction == "top" then
+    x = screenFrame.x
+    y = screenFrame.y
+    w = screenFrame.w
+    h = screenFrame.h / 2
+  elseif direction == "bottom" then
+    x = screenFrame.x
+    y = screenFrame.y + (screenFrame.h / 2)
+    w = screenFrame.w
+    h = screenFrame.h / 2
+end
+
+  frame.x, frame.y, frame.w, frame.h = x, y, w, h
+
+  win:setFrame(frame)
+end
+
+function moveWindow_old(direction)
+  local win = hs.window.focusedWindow()
   local frame = win:frame()
 
   local x, y, w, h = frame.x, frame.y, frame.w, frame.h
