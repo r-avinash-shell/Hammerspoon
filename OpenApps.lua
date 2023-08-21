@@ -17,5 +17,9 @@ function openAllApps(modifier)
   bind(modifier, "G", open("GitHub Desktop"))
   bind(modifier, "O", open("OpenLens"))
   bind(modifier, "S", open("Safari"))
+  bind(modifier, "S", open("Slack"))
+  bind(modifier, "T", open("Microsoft Teams"))
   bind(modifier, "V", open("Code"))
+  bind(modifier, "V", open("Microsoft Edge"))
+
 end
