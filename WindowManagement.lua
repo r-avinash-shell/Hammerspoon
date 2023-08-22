@@ -40,39 +40,6 @@ end
   win:setFrame(frame)
 end
 
-function moveWindow_old(direction)
-  local win = hs.window.focusedWindow()
-  local frame = win:frame()
-
-  local x, y, w, h = frame.x, frame.y, frame.w, frame.h
-
-  if direction == "left" then
-      x = 0
-      y = 0
-      w = screenFrame.w / 2
-      h = screenFrame.h
-  elseif direction == "right" then
-      x = screenFrame.w / 2
-      y = 0
-      w = screenFrame.w / 2
-      h = screenFrame.h
-  elseif direction == "top" then
-      x = 0
-      y = 0
-      w = screenFrame.w
-      h = screenFrame.h / 2
-  elseif direction == "bottom" then
-      x = 0
-      y = screenFrame.h / 2
-      w = screenFrame.w
-      h = screenFrame.h / 2
-  end
-
-  frame.x, frame.y, frame.w, frame.h = x, y, w, h
-
-  win:setFrame(frame)
-end
-
 function maximizeApp()
   local app = hs.window.focusedWindow()
   app:maximize()
@@ -97,4 +64,33 @@ end
 
 function moveToBottom()
   moveWindowToSide("bottom")
+end
+
+-- Function to move all open windows to the next active display
+function moveAllWindowsToBuiltInDisplay()
+  local builtinDisplay = hs.screen.primaryScreen()
+
+  if not builtinDisplay then
+      return
+  end
+
+  local allWindows = hs.window.allWindows()
+  for _, win in ipairs(allWindows) do
+      local frame = win:frame()
+      local screenFrame = builtinDisplay:frame()
+
+      frame.x = screenFrame.x
+      frame.y = screenFrame.y
+      win:setFrame(frame)
+  end
+end
+
+
+function bindWindows(modifier)
+  bind(modifier, "F", maximizeApp)
+  bind(modifier, "Left", moveToLeft)
+  bind(modifier, "Right", moveToRight)
+  bind(modifier, "Up", moveToTop)
+  bind(modifier, "Down", moveToBottom)
+  bind({"alt", "shift","cmd"} , "Left", moveAllWindowsToBuiltInDisplay)
 end

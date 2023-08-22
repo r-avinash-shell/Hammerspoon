@@ -13,12 +13,4 @@ openAllApps(modifier)
 bind(modifier, "tab", moveToNextScreen)
 
 -- Window Management
-bind(modifier, "`", maximizeApp)
-bind(modifier, "Left", moveToLeft)
-bind(modifier, "Right", moveToRight)
-bind(modifier, "Up", moveToTop)
-bind(modifier, "Down", moveToBottom)
-
-
-
-
+bindWindows(modifier)

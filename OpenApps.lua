@@ -2,10 +2,10 @@ local common = require('Common')
 
 function open(name)
   return function()
-      hs.application.launchOrFocus(name)
-      if name == 'Finder' then
-          hs.appfinder.appFromName(name):activate()
-      end
+    hs.application.launchOrFocus(name)
+    if name == 'Finder' then
+        hs.appfinder.appFromName(name):activate()
+    end
   end
 end
 
@@ -13,13 +13,15 @@ end
 function openAllApps(modifier) 
   bind(modifier, "C", open("Google Chrome"))
   bind(modifier, "D", open("Diarium"))
-  bind(modifier, "E", open("Microsoft Edge"))
-  bind(modifier, "F", open("Finder"))
+  bind(modifier, "E", open("Microsoft Edge")) 
   bind(modifier, "G", open("GitHub Desktop"))
-  bind(modifier, "O", open("OpenLens"))
-  bind(modifier, "S", open("Safari"))
+  bind(modifier, "L", open("OpenLens"))
+  bind(modifier, "T", open("Microsoft Teams")) 
+
   -- bind(modifier, "S", open("Slack"))
-  bind(modifier, "T", open("Microsoft Teams"))
+  bind(modifier, "S", open("Safari"))
+
   bind(modifier, "V", open("Code"))
+  -- bind(modifier, "V", open("Visual Studio Code"))
 
 end
