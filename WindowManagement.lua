@@ -66,24 +66,53 @@ function moveToBottom()
   moveWindowToSide("bottom")
 end
 
--- Function to move all open windows to the next active display
-function moveAllWindowsToBuiltInDisplay()
-  local builtinDisplay = hs.screen.primaryScreen()
+-- Function to move all open windows to the next display
+function moveAllWindowsToDisplay(number)
+  local displayScreen = hs.screen.allScreens()[number]
 
-  if not builtinDisplay then
+  if not displayScreen then
       return
   end
 
   local allWindows = hs.window.allWindows()
   for _, win in ipairs(allWindows) do
-      local frame = win:frame()
-      local screenFrame = builtinDisplay:frame()
+    win.moveToScreen(displayScreen, false, true) -- Move display
 
-      frame.x = screenFrame.x
-      frame.y = screenFrame.y
-      win:setFrame(frame)
+    -- Change Window position to display position
+    local frame = win:frame()
+    local screenFrame = displayScreen:frame()
+
+    frame.x = screenFrame.x
+    frame.y = screenFrame.y
+    win:setFrame(frame)
   end
 end
+
+function moveAllMainToDisplay(number)
+  moveAllWindowsToDisplay(1)
+end
+
+function moveAllWindowsToSecondaryDisplay(number)
+  moveAllWindowsToDisplay(2)
+end
+
+-- function moveAllWindowsToBuiltInDisplay()
+--   local builtinDisplay = hs.screen.primaryScreen()
+
+--   if not builtinDisplay then
+--       return
+--   end
+
+--   local allWindows = hs.window.allWindows()
+--   for _, win in ipairs(allWindows) do
+--       local frame = win:frame()
+--       local screenFrame = builtinDisplay:frame()
+
+--       frame.x = screenFrame.x
+--       frame.y = screenFrame.y
+--       win:setFrame(frame)
+--   end
+-- end
 
 
 function bindWindows(modifier)
@@ -92,5 +121,6 @@ function bindWindows(modifier)
   bind(modifier, "Right", moveToRight)
   bind(modifier, "Up", moveToTop)
   bind(modifier, "Down", moveToBottom)
-  bind({"alt", "shift","cmd"} , "Left", moveAllWindowsToBuiltInDisplay)
+  bind({"alt", "shift","cmd"} , "Left",  moveAllMainToDisplay)
+  bind({"alt", "shift","cmd"} , "Right",  moveAllWindowsToSecondaryDisplay)
 end
