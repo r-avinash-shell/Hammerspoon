@@ -10,18 +10,18 @@ function open(name)
 end
 
 -- Open apps
-function openAllApps(modifier) 
-  bind(modifier, "C", open("Google Chrome"))
+function openAllApps(modifier)
+  -- bind(modifier, "C", open("Google Chrome"))
   bind(modifier, "D", open("Diarium"))
-  bind(modifier, "E", open("Microsoft Edge")) 
+  bind(modifier, "E", open("Microsoft Edge"))
   bind(modifier, "G", open("GitHub Desktop"))
   bind(modifier, "L", open("OpenLens"))
-  bind(modifier, "T", open("Microsoft Teams")) 
+  bind(modifier, "T", open("Microsoft Teams classic"))
 
-  -- bind(modifier, "S", open("Slack"))
-  bind(modifier, "S", open("Safari"))
+  bind(modifier, "S", open("Slack"))
+  -- bind(modifier, "S", open("Safari"))
 
-  bind(modifier, "V", open("Code"))
-  -- bind(modifier, "V", open("Visual Studio Code"))
+  -- bind(modifier, "V", open("Code"))
+  bind(modifier, "V", open("Visual Studio Code"))
 
 end

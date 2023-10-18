@@ -68,27 +68,17 @@ end
 
 -- Function to move all open windows to the next display
 function moveAllWindowsToDisplay(number)
-  local displayScreen = hs.screen.allScreens()[number]
-
-  if not displayScreen then
-      return
-  end
-
   local allWindows = hs.window.allWindows()
-  for _, win in ipairs(allWindows) do
-    win.moveToScreen(displayScreen, false, true) -- Move display
+  local allScreens = hs.screen.allScreens()
 
-    -- Change Window position to display position
-    local frame = win:frame()
-    local screenFrame = displayScreen:frame()
-
-    frame.x = screenFrame.x
-    frame.y = screenFrame.y
-    win:setFrame(frame)
+  for i, win in ipairs(allWindows) do
+    local nextScreen = allScreens[number]
+    win:moveToScreen(nextScreen)
+    win:maximize()
   end
 end
 
-function moveAllMainToDisplay(number)
+function moveAllWindowsToPrimaryDisplay(number)
   moveAllWindowsToDisplay(1)
 end
 
@@ -96,31 +86,16 @@ function moveAllWindowsToSecondaryDisplay(number)
   moveAllWindowsToDisplay(2)
 end
 
--- function moveAllWindowsToBuiltInDisplay()
---   local builtinDisplay = hs.screen.primaryScreen()
-
---   if not builtinDisplay then
---       return
---   end
-
---   local allWindows = hs.window.allWindows()
---   for _, win in ipairs(allWindows) do
---       local frame = win:frame()
---       local screenFrame = builtinDisplay:frame()
-
---       frame.x = screenFrame.x
---       frame.y = screenFrame.y
---       win:setFrame(frame)
---   end
--- end
-
-
 function bindWindows(modifier)
   bind(modifier, "F", maximizeApp)
   bind(modifier, "Left", moveToLeft)
   bind(modifier, "Right", moveToRight)
   bind(modifier, "Up", moveToTop)
   bind(modifier, "Down", moveToBottom)
-  bind({"alt", "shift","cmd"} , "Left",  moveAllMainToDisplay)
+
+  bind(modifier , "1",  moveAllWindowsToPrimaryDisplay)
+  bind(modifier , "2",  moveAllWindowsToSecondaryDisplay)
+
+  bind({"alt", "shift","cmd"} , "Left", moveAllWindowsToPrimaryDisplay)
   bind({"alt", "shift","cmd"} , "Right",  moveAllWindowsToSecondaryDisplay)
 end
