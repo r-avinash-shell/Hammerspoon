@@ -5,7 +5,7 @@ local screenFrame = hs.screen.mainScreen():frame()
 hs.window.animationDuration = 0.2
 
 -- Function to move the current window to a specific portion of the screen
-function moveWindow(direction)
+local function moveWindow(direction)
   local win = hs.window.focusedWindow()
   local screen = win:screen()
   local screenFrame = screen:frame()
@@ -33,41 +33,40 @@ function moveWindow(direction)
     y = screenFrame.y + (screenFrame.h / 2)
     w = screenFrame.w
     h = screenFrame.h / 2
-end
+  end
 
   frame.x, frame.y, frame.w, frame.h = x, y, w, h
 
   win:setFrame(frame)
 end
 
-function maximizeApp()
+local function maximizeApp()
   local app = hs.window.focusedWindow()
   app:maximize()
 end
 
-function moveWindowToSide(direction)
-  -- maximizeApp()
+local function moveWindowToSide(direction)
   moveWindow(direction)
 end
 
-function moveToLeft()
+local function moveToLeft()
   moveWindowToSide("left")
 end
 
-function moveToRight()
+local function moveToRight()
   moveWindowToSide("right")
 end
 
-function moveToTop()
+local function moveToTop()
   moveWindowToSide("top")
 end
 
-function moveToBottom()
+local function moveToBottom()
   moveWindowToSide("bottom")
 end
 
 -- Function to move all open windows to the next display
-function moveAllWindowsToDisplay(number)
+local function moveAllWindowsToDisplay(number)
   local allWindows = hs.window.allWindows()
   local allScreens = hs.screen.allScreens()
 
@@ -78,11 +77,11 @@ function moveAllWindowsToDisplay(number)
   end
 end
 
-function moveAllWindowsToPrimaryDisplay(number)
+local function moveAllWindowsToPrimaryDisplay(number)
   moveAllWindowsToDisplay(1)
 end
 
-function moveAllWindowsToSecondaryDisplay(number)
+local function moveAllWindowsToSecondaryDisplay(number)
   moveAllWindowsToDisplay(2)
 end
 
